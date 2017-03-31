@@ -5,10 +5,13 @@ Discord ProTools is a BetterDiscord plugin that allows faster and broader usage 
 ProTools makes use of the new Ctrl + K quickswitcher dialog. All the commands are typed there. Every command begins with a dash "-", followed by the command name. If command takes parameters, they are separated by spaces, for example "-guild betterdiscord"
 
 List of commands
+
 Command | Description
 -|-
--next | Goes to the next unread channel
--clear | Clears all unread channels
+-next, -n | Goes to the next unread channel
+-clear, -c | Clears all unread channels
+-guild <name>, -g | Go to guild, autocompleted (Unimplemented)
+-text <name>, -t | Change text channel, autocompleted (Unimplemented)
 
 ### Installation
 1. Make sure you have BetterDiscord installed.

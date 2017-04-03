@@ -89,6 +89,18 @@ function vaporwave()
 	}
 }
 
+function changeGuild(args)
+{
+	console.log("ProTools: Guild");
+	document.getElementsByClassName("guild")[Number(args) + 2].getElementsByClassName("avatar-small")[0].click();
+}
+
+function changeText(args)
+{
+	console.log("ProTools: Text");
+	document.getElementsByClassName("channel-text")[Number(args) + 0].children[0].click();
+}
+
 function vaporVersion(text)
 {
 	var wide = {
@@ -209,7 +221,7 @@ function loop()
 
 				var input = document.getElementsByClassName("big-input")[0];
 				var scroller = document.getElementsByClassName("results-scroller")[0];
-				var empty = document.getElementsByClassName("quickswitcher-empty-state")[0];
+				var empty = document.getElementsByClassName("quickswitcher-	empty-state")[0];
 
 
 				var command = input.value.split(" ")[0];
@@ -225,6 +237,16 @@ function loop()
 					if(command == ":vaporwave" || command == ":vw")
 					{
 						vaporwave();
+					}
+
+					if(command == ":guild" || command == ":g")
+					{
+						changeGuild(args);
+					}
+
+					if(command == ":text" || command == ":t")
+					{
+						changeText(args);
 					}
 
 				}

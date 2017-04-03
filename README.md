@@ -10,7 +10,8 @@ Command | Description | Aliases
 -|-|-
 :next | Goes to the next unread channel | :n
 :vaporwave | Toggle input mode between vaporwave and regular. | :vw
-:guild | Change text channel, autocompleted (Unimplemented) | :g
+:guild | Change guild (server), takes a number 0-n | :g
+:text | Change text channel, takes a number 0-n | :t
 
 ### Installation
 1. Make sure you have BetterDiscord installed.

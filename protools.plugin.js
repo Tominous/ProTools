@@ -2,9 +2,50 @@
 
 function protools() {}
 
+var ctrlKeyCode = 17;
+var spaceKeyCode = 32;
+var enterKeyCode = 13;
+var tKeyCode = 84;
+
+var hooked = false;
+var command = "";
+var ctrlDown = false;
+
+var vaporMode = false;
+var vaporDefault = "";
+
 protools.prototype.load = function() {
 	console.log("ProTools loaded");
 	setInterval(loop, 33);
+
+	document.addEventListener("keydown", function(e) {
+
+		if(e.keyCode == tKeyCode)
+		{
+			if(ctrlDown)
+			{
+				console.log("Command window opened");
+
+				setTimeout(function() {
+					document.getElementsByClassName("big-input")[0].value = ":";
+				}, 50);
+
+			}
+		}
+
+		if(e.keyCode == ctrlKeyCode)
+		{
+			ctrlDown = true;
+		}
+
+	});
+	document.addEventListener("keyup", function(e) {
+		if(e.keyCode == ctrlKeyCode)
+		{
+			ctrlDown = false;
+		}
+	});
+
 };
 
 function eventFire(el, etype){
@@ -18,20 +59,6 @@ function eventFire(el, etype){
 }
 
 
-var hooked = false;
-var command = "";
-
-function clearUnread()
-{
-	console.log("ProTools: clearUnread");
-
-	var count = 0;
-	while(document.getElementsByClassName("guild unread").length != 0 && count < 1000)
-	{
-		nextUnread();
-		count++;
-	}
-}
 
 function nextUnread()
 {
@@ -45,6 +72,130 @@ function nextUnread()
 		document.getElementsByClassName("new-messages-bar")[0].children[1].click();
 	}, 1000);
 
+}
+
+function vaporwave()
+{
+	console.log("ProTools: Vaporwave");
+	vaporMode = !vaporMode;
+
+	if(vaporMode)
+	{
+		vaporDefault = document.getElementsByClassName("channel-textarea-inner")[0].style.background;
+		document.getElementsByClassName("channel-textarea-inner")[0].style.background = "#dd88bb";
+	}
+	else {
+		document.getElementsByClassName("channel-textarea-inner")[0].style.background = vaporDefault;
+	}
+}
+
+function vaporVersion(text)
+{
+	var wide = {
+		" ": "　",
+		"`": "`",
+		"1": "１",
+		"2": "２",
+		"3": "３",
+		"4": "４",
+		"5": "５",
+		"6": "６",
+		"7": "７",
+		"8": "８",
+		"9": "９",
+		"0": "０",
+		"-": "－",
+		"=": "＝",
+		"~": "~",
+		"!": "！",
+		"@": "＠",
+		"#": "＃",
+		"$": "＄",
+		"%": "％",
+		"^": "^",
+		"&": "＆",
+		"*": "＊",
+		"(": "（",
+		")": "）",
+		"_": "_",
+		"+": "＋",
+		"q": "ｑ",
+		"w": "ｗ",
+		"e": "ｅ",
+		"r": "ｒ",
+		"t": "ｔ",
+		"y": "ｙ",
+		"u": "ｕ",
+		"i": "ｉ",
+		"o": "ｏ",
+		"p": "ｐ",
+		"[": "[",
+		"]": "]",
+		"\\": "\\",
+		"Q": "Ｑ",
+		"W": "Ｗ",
+		"E": "Ｅ",
+		"R": "Ｒ",
+		"T": "Ｔ",
+		"Y": "Ｙ",
+		"U": "Ｕ",
+		"I": "Ｉ",
+		"O": "Ｏ",
+		"P": "Ｐ",
+		"{": "{",
+		"}": "}",
+		"|": "|",
+		"a": "ａ",
+		"s": "ｓ",
+		"d": "ｄ",
+		"f": "ｆ",
+		"g": "ｇ",
+		"h": "ｈ",
+		"j": "ｊ",
+		"k": "ｋ",
+		"l": "ｌ",
+		";": "；",
+		"'": "＇",
+		"A": "Ａ",
+		"S": "Ｓ",
+		"D": "Ｄ",
+		"F": "Ｆ",
+		"G": "Ｇ",
+		"H": "Ｈ",
+		"J": "Ｊ",
+		"K": "Ｋ",
+		"L": "Ｌ",
+		":": "：",
+		"\"": "\"",
+		"z": "ｚ",
+		"x": "ｘ",
+		"c": "ｃ",
+		"v": "ｖ",
+		"b": "ｂ",
+		"n": "ｎ",
+		"m": "ｍ",
+		",": "，",
+		".": "．",
+		"/": "／",
+		"Z": "Ｚ",
+		"X": "Ｘ",
+		"C": "Ｃ",
+		"V": "Ｖ",
+		"B": "Ｂ",
+		"N": "Ｎ",
+		"M": "Ｍ",
+		"<": "<",
+		">": ">",
+		"?": "？"
+	};
+	var charArray = text.split("");
+	for (var i = 0; i < charArray.length; i++) {
+		if (wide[charArray[i].toLowerCase()]) {
+			charArray[i] = wide[charArray[i]];
+		}
+	}
+	text = charArray.join("");
+	return text;
 }
 
 
@@ -61,18 +212,21 @@ function loop()
 				var empty = document.getElementsByClassName("quickswitcher-empty-state")[0];
 
 
+				var command = input.value.split(" ")[0];
+				var args = input.value.slice(input.value.indexOf(" ") + 1).trim();
 
-				if(e.keyCode == 13)
+				if(e.keyCode == enterKeyCode)
 				{
-					if(input.value == "-clear")
-					{
-						clearUnread();
-					}
-
-					if(input.value == "-next")
+					if(command == ":next" || command == ":n")
 					{
 						nextUnread();
 					}
+
+					if(command == ":vaporwave" || command == ":vw")
+					{
+						vaporwave();
+					}
+
 				}
 
 
@@ -86,6 +240,12 @@ function loop()
 	}
 	else {
 		hooked = false;
+	}
+
+	if(vaporMode)
+	{
+		document.getElementsByClassName("channel-textarea-inner")[0].children[1].value = vaporVersion(document.getElementsByClassName("channel-textarea-inner")[0].children[1].value);
+
 	}
 }
 

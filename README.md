@@ -7,7 +7,7 @@ ProTools makes use of the new Ctrl + K quickswitcher dialog. All the commands ar
 List of commands
 
 Command | Description | Aliases
--|-
+-|-|-
 :next | Goes to the next unread channel | :n
 :vaporwave | Toggle input mode between vaporwave and regular. | :vw
 :guild | Change text channel, autocompleted (Unimplemented) | :g

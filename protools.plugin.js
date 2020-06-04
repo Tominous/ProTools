@@ -258,7 +258,7 @@ function loop()
 
 			hooked = true;
 		}
-		//console.log("ProTools " + document.getElementsByClassName("big-input")[0].value);
+		console.log("ProTools " + document.getElementsByClassName("big-input")[0].value);
 	}
 	else {
 		hooked = false;
